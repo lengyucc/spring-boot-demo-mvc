@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- Web -->
-		<jsp.version>2.2</jsp.version>	<!-- http://blog.csdn.net/xiejx618/article/details/12068693参考此文修复 -->
+		<jsp.version>2.2</jsp.version>	<!-- http://blog.csdn.net/xiejx618/article/details/12068693 参考此文修复 -->
 		<jstl.version>1.2</jstl.version>
 		<servlet.version>3.1.0</servlet.version>
 		<!-- Spring -->
