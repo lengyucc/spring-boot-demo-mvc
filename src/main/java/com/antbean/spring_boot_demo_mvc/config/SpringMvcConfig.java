@@ -3,6 +3,8 @@ package com.antbean.spring_boot_demo_mvc.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -18,6 +20,7 @@ import com.antbean.spring_boot_demo_mvc.web.interceptor.DemoInterceptor;
 @EnableWebMvc
 @ComponentScan("com.antbean.spring_boot_demo_mvc")
 public class SpringMvcConfig extends WebMvcConfigurerAdapter {
+
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -25,6 +28,14 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setSuffix(".jsp");
 		viewResolver.setViewClass(JstlView.class);
 		return viewResolver;
+	}
+
+	// 文件上传解析器
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+		commonsMultipartResolver.setMaxUploadSize(1000000);
+		return commonsMultipartResolver;
 	}
 
 	@Bean
@@ -57,6 +68,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 		// registry.addViewController("/hello").setViewName("/hello");
 		// registry.addRedirectViewController("/baidu", "http://www.baidu.com");
 		registry.addViewController("/hello").setViewName("/index");
+		registry.addViewController("/toUpload").setViewName("/upload");
 	}
 
 	// 在SpringMVC中，路径参数如果带“.”的话，“.”后面的值将被忽略，例如：http://localhost:8081/spring-boot-demo-mvc/anno/pathvar/sssssss.aa，
