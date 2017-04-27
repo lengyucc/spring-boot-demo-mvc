@@ -1,8 +1,11 @@
 package com.antbean.spring_boot_demo_mvc.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.antbean.spring_boot_demo_mvc.web.converter.MyMessageConverter;
 import com.antbean.spring_boot_demo_mvc.web.interceptor.DemoInterceptor;
 
 @Configuration
@@ -42,6 +46,12 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 	public DemoInterceptor demoInterceptor() {
 		return new DemoInterceptor();
 	}
+	
+	// 自定义HttpMessageConvert
+	@Bean
+	public MyMessageConverter myMessageConvert(){
+		return new MyMessageConverter();
+	}
 
 	// 设置静态资源访问
 	@Override
@@ -69,6 +79,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 		// registry.addRedirectViewController("/baidu", "http://www.baidu.com");
 		registry.addViewController("/hello").setViewName("/index");
 		registry.addViewController("/toUpload").setViewName("/upload");
+		registry.addViewController("/converter").setViewName("/converter");
 	}
 
 	// 在SpringMVC中，路径参数如果带“.”的话，“.”后面的值将被忽略，例如：http://localhost:8081/spring-boot-demo-mvc/anno/pathvar/sssssss.aa，
@@ -78,4 +89,15 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 		configurer.setUseSuffixPatternMatch(false);
 	}
 
+	// 配置自定义的HttpMessageConvert
+	// configureMessageConverters会覆盖SpringMVC默认注册的HttpMessageConver,慎用
+//	@Override
+//	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//		super.configureMessageConverters(converters);
+//	}
+	// extendMessageConverters不会覆盖
+	@Override
+	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.add(myMessageConvert());
+	}
 }
