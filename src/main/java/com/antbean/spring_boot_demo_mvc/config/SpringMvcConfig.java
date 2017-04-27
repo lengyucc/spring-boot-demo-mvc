@@ -80,6 +80,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addViewController("/hello").setViewName("/index");
 		registry.addViewController("/toUpload").setViewName("/upload");
 		registry.addViewController("/converter").setViewName("/converter");
+		registry.addViewController("/sse").setViewName("/sse");
 	}
 
 	// 在SpringMVC中，路径参数如果带“.”的话，“.”后面的值将被忽略，例如：http://localhost:8081/spring-boot-demo-mvc/anno/pathvar/sssssss.aa，
