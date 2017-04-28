@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -22,6 +23,7 @@ import com.antbean.spring_boot_demo_mvc.web.interceptor.DemoInterceptor;
 
 @Configuration
 @EnableWebMvc
+@EnableScheduling
 @ComponentScan("com.antbean.spring_boot_demo_mvc")
 public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 
@@ -81,6 +83,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addViewController("/toUpload").setViewName("/upload");
 		registry.addViewController("/converter").setViewName("/converter");
 		registry.addViewController("/sse").setViewName("/sse");
+		registry.addViewController("/async").setViewName("/async");
 	}
 
 	// 在SpringMVC中，路径参数如果带“.”的话，“.”后面的值将被忽略，例如：http://localhost:8081/spring-boot-demo-mvc/anno/pathvar/sssssss.aa，
