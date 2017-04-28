@@ -24,13 +24,13 @@ public class ExceptionHandlerAdvice {
 	// @ModelAttribute本来的作用是绑定键值对到Model里，此处是让全局的@RequestMapping都能获取到此处设置的键值对
 	@ModelAttribute
 	public void addAttributes(Model model) {
-		model.addAttribute("msg", "额外信息");
+//		model.addAttribute("msg", "额外信息");
 	}
 
 	// 用来设置WebDataBinder，WebDataBinder用来自动绑定前台请求参数到Model中
 	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
-		webDataBinder.setDisallowedFields("userId"); // 此处是忽略请求参数userId
+//		webDataBinder.setDisallowedFields("userId"); // 此处是忽略请求参数userId
 	}
 
 }
